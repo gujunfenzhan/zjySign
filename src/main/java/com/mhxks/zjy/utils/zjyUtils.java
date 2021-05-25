@@ -172,12 +172,12 @@ public class zjyUtils {
         }
         return bs;
     }
-    public static String getCodeByBase64(StuWrapper stuWrapper){
+    public static String getCodeByBase64(StuWrapper stuWrapper,String url){
         try {
             StringBuffer sb = new StringBuffer();
             sb.append("token="+stuWrapper.getValueByKey("token")+"&");
             sb.append("pic="+stuWrapper.getValueByKey("pic"));
-            URL url1 = new URL(zjyURL.OCR_API_URL);
+            URL url1 = new URL(url);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url1.openConnection();
             httpURLConnection.setRequestMethod("POST");
             //httpURLConnection.setDoOutput(true);
@@ -332,12 +332,12 @@ public class zjyUtils {
 
 
 
-    public static String getCodeByBase64(String token,String pic){
+    public static String getCodeByBase64(String token,String pic,String url){
         StuWrapper stuWrapper = new StuWrapper();
         stuWrapper.putAttribute("token",token);
         stuWrapper.putAttribute("pic",pic);
         try {
-            ResponeWrapper str = getStr(zjyURL.OCR_API_URL,stuWrapper,"");
+            ResponeWrapper str = getStr(url,stuWrapper,"");
             return str.getLore();
         }catch (Exception e){
             e.printStackTrace();
