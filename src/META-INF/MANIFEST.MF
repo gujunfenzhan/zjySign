@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: lib/log4j-1.2.17.jar lib/gson-2.8.2.jar
+Main-Class: com.mhxks.zjy.zjyQianDaoMain
+
