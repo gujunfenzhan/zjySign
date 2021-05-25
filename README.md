@@ -18,4 +18,4 @@
 * 自定义平日签到 √
 * 多用户(不建议太多) √
 
-![img](img/test.jpg)
+![img](img/img.jpg)
