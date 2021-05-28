@@ -1,8 +1,8 @@
 {
   "schoolId": "nq-daoonvjjn-uqyjacgja",/*可填可不填,无影响*/
   "tryLoginInterval": 10, /*尝试登录间隔，单位1秒*/
-  "minSignInterval": 100,/*尝试签到间隔最低时间*/
-  "signInterval": 120,/*尝试签到间隔*/
+  "minSignInterval": 250,/*尝试签到间隔最低时间*/
+  "signInterval": 300,/*尝试签到间隔*/
   "signWeekDay": "23456",/*1:周末 2:周一 3:周二 4:周三 5:周四 6:周五 7:周六*/
   "randomInterval": true,/*等待时间是否随机的*/
   "enableAPI": false,/*是否开启对验证码识别的API，如果不开启，则会在本地生成验证码图片需要手动填写*/

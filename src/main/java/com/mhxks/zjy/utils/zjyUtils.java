@@ -10,12 +10,18 @@ import sun.misc.BASE64Encoder;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.*;
 
 public class zjyUtils {
     public static JsonParser jsonParser = new JsonParser();
     public static Random random = new Random();
     public static BASE64Encoder encoder = new BASE64Encoder();
+
+
+
+
+
     public static ResponeWrapper getStr(String url,StuWrapper stuWrapper,String cookie)throws Exception{
 
         StringBuffer sb = new StringBuffer();
@@ -53,6 +59,7 @@ public class zjyUtils {
         List<StuWrapper> stuWrapperList = new ArrayList<StuWrapper>();
         try {
             String str = zjyUtils.getStr(zjyURL.COURSE_LIST_URL, new StuWrapper(),cookie).getLore();
+
             JsonElement jsonElement = jsonParser.parse(str);
             JsonArray jsonArray = jsonElement.getAsJsonObject().get("courseList").getAsJsonArray();
             for (JsonElement element : jsonArray) {
@@ -162,6 +169,8 @@ public class zjyUtils {
         responeWrapper.map.put("bytes",byteArrayOutputStream.toByteArray());
         return responeWrapper;
     }
+
+
     public static byte[] bytesMerge(byte[] bs1 ,byte[] bs2){
         byte[] bs = new byte[bs1.length+bs2.length];
         for (int i = 0; i < bs1.length; i++) {
@@ -214,6 +223,7 @@ public class zjyUtils {
         //获取用户所有课程
         List<StuWrapper> courseTypeAllList = new ArrayList<StuWrapper>();
         List<StuWrapper> courseList = getCourse(cookie);
+
         for (StuWrapper wrapper : courseList) {
             //获取课程对应的任务，一般当天
            // wrapper.putAttribute("currentTime","2021-05-20");

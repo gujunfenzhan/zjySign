@@ -17,16 +17,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 public class zjyQianDaoMain {
     public static final Logger logger = Logger.getLogger(zjyQianDaoMain.class);
     public static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        logger.info("职教云自动签到启动!飞飞飞");
+        logger.info("职教云自动签到启动!飞飞飞 v1.0.2");
         UserConfig.init(new File("config.json"));
         logger.info("json配置文件加载完毕");
         int tryLoginInterval = UserConfig.tryLoginInterval;
@@ -68,18 +65,24 @@ public class zjyQianDaoMain {
                                 APIConfig apiConfig = UserConfig.apiConfig;
                                 String host = apiConfig.host;
                                 Map<String,String> head = apiConfig.head;
-                                Map<String,String> formData = apiConfig.formData;
+                                Map<String,String> formData = new HashMap<String, String>();
+                                formData.putAll(apiConfig.formData);
                                 for (Map.Entry<String, String> stringStringEntry : formData.entrySet()) {
                                     stringStringEntry.setValue(stringStringEntry.getValue().replace("[base64]",base64));
                                 }
                                 TimeMeasurement.cutStartTime();
-                                code = zjyUtils.getCodeByApi(new URL(host),head,formData);
+                                    code = zjyUtils.getCodeByApi(new URL(host), head, formData);
                                 logger.info("请求API共花费"+TimeMeasurement.getTimeCost()+"毫秒");
                                 if(code==null){
-                                    logger.info("API异常,尝试从新获取");
+                                    logger.info("API异常,尝试从新获取验证码");
                                     continue;
                                 }
 
+                                //save Image
+                                BufferedImage bufferedImage = ImageUtils.removeBackground(bs);
+                                File file = new File("img", UUID.randomUUID() + ".jpg");
+                                ImageIO.write(bufferedImage, "jpg", file);
+                                logger.info("图片已被保存到"+file.getPath());
                             }else {
                                 BufferedImage bufferedImage = ImageUtils.removeBackground(bs);
                                 File file = new File("img", UUID.randomUUID() + ".jpg");
